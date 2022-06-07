@@ -45,12 +45,12 @@
         curl -sLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
         ln -s /usr/local/bin/kubectl /usr/bin/kubectl
-    - name: Git Clone
+    - name: Git clone
       ansible.builtin.git:
         repo: 'https://github.com/khabibulin-lenar/terraform-eks'
         dest: terraform-provision-eks-cluster
         update: no
-    - name: Terraform Provisioning
+    - name: Basic deploy of a service
       community.general.terraform:
         project_path: 'terraform-provision-eks-cluster/'
         state: present
