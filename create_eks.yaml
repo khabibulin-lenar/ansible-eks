@@ -50,11 +50,11 @@
         repo: 'https://github.com/khabibulin-lenar/terraform-eks'
         dest: terraform-provision-eks-cluster
         update: no
-    - name: Basic deploy of a service
-      community.general.terraform:
-        project_path: 'terraform-provision-eks-cluster/'
-        state: present
-        force_init: true
+    - name: Basic deploy of terraform
+      shell: |
+        cd terraform-provision-eks-cluster
+        terraform init
+        terraform apply -auto-approve
     - name: Kubeconfig Setup
       shell: |
         cd terraform-provision-eks-cluster
