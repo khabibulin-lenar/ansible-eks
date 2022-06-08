@@ -1,0 +1,9 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: Deleting Terraform Infra
+      shell: |
+        cd terraform-provision-eks-cluster
+        terraform destroy -auto-approve
