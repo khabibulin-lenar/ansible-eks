@@ -1,0 +1,19 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: Git clone
+      ansible.builtin.git:
+        repo: 'https://github.com/khabibulin-lenar/terraform-eks'
+        dest: terraform-provision-eks-cluster
+        update: no
+    - name: Basic deploy of terraform
+      shell: |
+        cd terraform-provision-eks-cluster
+        terraform init
+        terraform apply -auto-approve
+    - name: Kubeconfig Setup
+      shell: |
+        cd terraform-provision-eks-cluster
+        aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
